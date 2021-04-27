@@ -1,4 +1,4 @@
-export default function (options){
+export default function(options) {
   var defaults = {
     idle: 60000, // idle time in ms
     events: ['mousemove', 'keydown', 'mousedown', 'touchstart'], // events that will trigger the idle resetter
@@ -20,30 +20,31 @@ export default function (options){
     'msvisibilitychange'
   ];
   var lastId = null;
-  var resetTimeout, timeout;
+  var resetTimeout;
+  var timeout;
 
   // event to clear all idle events
-  window.addEventListener('idle:stop', function (event){
+  window.addEventListener('idle:stop', function (event) {
     bulkRemoveEventListener(window, settings.events);
     settings.keepTracking = false;
     resetTimeout(lastId, settings);
   });
 
-  var resetTimeout = function resetTimeout (id, settings){
-    if(idle){
+  var resetTimeout = function resetTimeout(id, settings) {
+    if (idle) {
       idle = false;
       settings.onActive.call();
     }
     clearTimeout(id);
-    if(settings.keepTracking){
+    if (settings.keepTracking) {
       return timeout(settings);
     }
   };
 
-  var timeout = function timeout (settings){
+  var timeout = function timeout(settings) {
     var timer = (settings.recurIdleCall) ? setInterval : setTimeout;
     var id;
-    id = timer(function (){
+    id = timer(function() {
       idle = true;
       settings.onIdle.call();
     }, settings.idle);
@@ -51,53 +52,51 @@ export default function (options){
   };
 
   return {
-    start: function (){
+    start() {
       lastId = timeout(settings);
-      bulkAddEventListener(window, settings.events, function (event){
+      bulkAddEventListener(window, settings.events, function (event) {
         lastId = resetTimeout(lastId, settings);
       });
-      if(settings.onShow || settings.onHide){
-        bulkAddEventListener(document, visibilityEvents, function (event){
+      if (settings.onShow || settings.onHide) {
+        bulkAddEventListener(document, visibilityEvents, function (event) {
           if (document.hidden || document.webkitHidden || document.mozHidden || document.msHidden) {
-            if (visible){
+            if (visible) {
               visible = false;
               settings.onHide.call();
             }
-          } else {
-            if (!visible){
-              visible = true;
-              settings.onShow.call();
-            }
+          } else if (!visible) {
+            visible = true;
+            settings.onShow.call();
           }
         });
       }
     }
-  }
-};
+  };
+}
 
-var bulkAddEventListener = function bulkAddEventListener (object, events, callback){
-  events.forEach(function (event){
-    object.addEventListener(event, function (event){
+function bulkAddEventListener(object, events, callback) {
+  events.forEach(function (event) {
+    object.addEventListener(event, function (event) {
       callback(event);
     });
   });
 };
 
-var bulkRemoveEventListener = function bulkRemoveEventListener (object, events){
-  events.forEach(function (event){
+function bulkRemoveEventListener(object, events) {
+  events.forEach(function (event) {
     object.removeEventListener(event);
   });
 };
 
 // Thanks to http://youmightnotneedjquery.com/
-var extend = function extend (out){
+function extend(out) {
   out = out || {};
   for (var i = 1; i < arguments.length; i++) {
-    if (!arguments[i]){
+    if (!arguments[i]) {
       continue;
     }
     for (var key in arguments[i]) {
-      if (arguments[i].hasOwnProperty(key)){
+      if (arguments[i].hasOwnProperty(key)) {
         out[key] = arguments[i][key];
       }
     }

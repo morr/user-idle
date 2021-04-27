@@ -14,5 +14,7 @@
   ],
   "author": "Henrique Boaventura <hboaventura@gmail.com> (http://www.hboaventura.com/)",
   "license": "MIT",
-  "homepage": "https://github.com/morr/user-idle"
+  "homepage": "https://github.com/morr/user-idle",
+  "dependencies": {},
+  "devDependencies": {}
 }
