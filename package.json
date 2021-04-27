@@ -1,29 +1,18 @@
 {
-  "name": "jquery.idle",
-  "version": "1.3.0",
-  "description": "A dead simple jQuery plugin that executes a callback function if the user is idle.",
-  "main": "jquery.idle.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
+  "name": "user-idle",
+  "version": "2.0.0",
+  "description": "A dead simple plugin that executes a callback function if the user is idle.",
+  "main": "index.js",
   "repository": {
     "type": "git",
-    "url": "https://github.com/kidh0/jquery.idle.git"
-  },
-  "peerDependencies": {
-    "jquery": "^3"
+    "url": "https://github.com/morr/user-idle.git"
   },
   "keywords": [
     "idle",
     "detection",
-    "callback",
-    "jquery",
-    "ecosystem:jquery"
+    "callback"
   ],
   "author": "Henrique Boaventura <hboaventura@gmail.com> (http://www.hboaventura.com/)",
   "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/kidh0/jquery.idle/issues"
-  },
-  "homepage": "https://github.com/kidh0/jquery.idle"
+  "homepage": "https://github.com/morr/user-idle"
 }
